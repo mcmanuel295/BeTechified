@@ -24,11 +24,15 @@ app.use((err, req, res, next) => {
 });
 
 
-// endpoints
+
 app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, "page","index.html"));
+    res.send(`<h1>My Week 2 API</h1> <br> <a href="/home">Home</a>`);
 });
 
+// endpoints
+app.get("/home", (req, res) => {
+    res.sendFile(path.join(__dirname, "page","index.html"));
+});
 
 app.post("/user", (req, res) => {
     const { name, email } = req.body;

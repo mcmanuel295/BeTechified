@@ -37,7 +37,8 @@ app.get("/home", (req, res) => {
 app.post("/user", (req, res) => {
     const { name, email } = req.body;
     if(!name || !email){
-        throw new Error("Name and email are required");
+        res.status(400);
+        res.send("Name and Email required");
     }
     res.send(`Hello: ${name}`);
 });

@@ -1,16 +1,19 @@
-const path = require("path").resolve(__dirname, "../.env");
+const path = require("path")
+const env = path.resolve(__dirname, "../.env");
+require("dotenv").config({path: env});
 
-require("dotenv").config({ path });
 const express= require('express');
 const app = express();
 
-const ported = process.env.PORTED ;
+const port = process.env.PORT ;
 
 // middle ware
 app.use(express.json());
 
+app.use('/files', express.static(path.join(__dirname, 'files')));
+
 app.use((req,res,next) =>{
-    console.log(`${req.method}: ${req.url}`)
+    console.log(`request logs : ${req.method}: ${req.url}`)
     next();
 });
 
@@ -23,12 +26,9 @@ app.use((err, req, res, next) => {
 
 // endpoints
 app.get("/", (req, res) => {
-    res.send("My week 2 API");
+    res.sendFile(path.join(__dirname, "page","index.html"));
 });
 
-app.get("/", (req, res) => {
-    res.send("My week 2 API");
-});
 
 app.post("/user", (req, res) => {
     const { name, email } = req.body;
@@ -43,6 +43,6 @@ app.get("/user/:id", (req, res) => {
     res.send(`User ${id} profile`);
 });
 
-app.listen(ported, () => {
-    console.log(`Server is running on port ${ported}`);
+app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
 });

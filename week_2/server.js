@@ -39,6 +39,7 @@ app.post("/user", (req, res) => {
     if(!name || !email){
         res.status(400);
         res.send("Name and Email required");
+        return;
     }
     res.send(`Hello: ${name}`);
 });

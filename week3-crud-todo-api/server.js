@@ -12,6 +12,27 @@ app.get('/todos', (req, res) => {
   res.status(200).json(todos); // Send array as JSON
 });
 
+// GET A SINGLE ID
+app.get('todos/:id'),(req,res)=>{
+  const id = parseInt(req.params.id);
+  const todo = todos.find((t)=> t.id === id);
+  res.status(200).json(todo);
+
+});
+
+
+
+// GET ACTIVE TODOS
+app.get('todos/active'),(req,res)=>{
+
+
+
+
+});
+
+
+
+
 // POST New – Create
 app.post('/todos', (req, res) => {
   const newTodo = { id: todos.length + 1, ...req.body }; // Auto-ID

@@ -36,7 +36,7 @@ app.get('/todos/active',(req,res)=>{
 // POST New – Create
 app.post('/todos', (req, res) => {
 const {task,completed} = req.body;
-  if(!task || ! completed)  return res.status(400).json({error: 'Task or Completed status is needed'});
+  if(!task || completed === undefined)  return res.status(400).json({error: 'Task or Completed status is needed'});
   
   const newTodo = { id: todos.length + 1, ...req.body }; // Auto-ID
   todos.push(newTodo);
@@ -68,6 +68,7 @@ app.get('/todos/completed', (req, res) => {
 
 app.use((err, req, res, next) => {
   res.status(500).json({ error: 'Server error!' });
+  next();
 });
 
 const PORT = process.env.PORT || 3002

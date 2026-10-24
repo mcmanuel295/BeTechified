@@ -16,15 +16,6 @@ app.get('/todos', (req, res) => {
   res.status(200).json(todos); // Send array as JSON
 });
 
-// GET A SINGLE ID
-app.get('/todos/:id',(req,res) => {
-  const id = parseInt(req.params.id);
-  const todo = todos.find((t)=> t.id === id);
-  if(!todo) return res.status(404).json({message: 'Todo not found'});
-
-  res.status(200).json(todo);
-});
-
 
 // GET ACTIVE TODOS
 app.get('/todos/active',(req,res)=>{
@@ -64,6 +55,16 @@ app.delete('/todos/:id', (req, res) => {
 app.get('/todos/completed', (req, res) => {
   const completed = todos.filter((t) => t.completed);
   res.json(completed); // Custom Read!
+});
+
+
+// GET A SINGLE ID
+app.get('/todos/:id',(req,res) => {
+  const id = parseInt(req.params.id);
+  const todo = todos.find((t)=> t.id === id);
+  if(!todo) return res.status(404).json({message: 'Todo not found'});
+
+  res.status(200).json(todo);
 });
 
 app.use((err, req, res, next) => {
